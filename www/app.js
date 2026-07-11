@@ -19,18 +19,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function init() {
     try {
+        console.log("1. Mulai");
         await getLocation();
+
+        console.log("2. Lokasi OK");
         await loadTodayPrayer();
+
+        console.log("3. Jadwal hari ini OK");
         await loadMonthlyPrayer();
 
+        console.log("4. Jadwal bulanan OK");
+
         startClock();
-
         hideLoading();
-   } catch (err) {
-    console.error(err);
-    alert("Gagal memuat data:\n\n" + (err.message || err));
-}
 
+    } catch (err) {
+        console.error(err);
+        alert("ERROR:\n" + (err.message || JSON.stringify(err) || err));
+    }
+}
 async function getLocation() {
 
     return new Promise((resolve, reject) => {
