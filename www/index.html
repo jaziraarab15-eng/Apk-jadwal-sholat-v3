@@ -3,265 +3,337 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
-<title>Jadwal Sholat V4</title>
+    <title>Jadwal Sholat</title>
 
-<meta name="theme-color" content="#0F766E">
+    <meta name="theme-color" content="#0f766e">
 
-<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
-<body>
+<body class="bg-siang">
 
-<!-- ===========================
+<!-- =====================================
      Loading Screen
-=========================== -->
+====================================== -->
 
 <div id="loadingScreen">
 
-<div class="loader"></div>
+    <div class="loader"></div>
 
-<h2>🕌 Jadwal Sholat</h2>
+    <h2>🕌 Jadwal Sholat</h2>
 
-<p>Memuat aplikasi...</p>
-
-</div>
-
-<!-- ===========================
-     Hero Header
-=========================== -->
-
-<header class="hero">
-
-<div class="hero-overlay">
-
-<div class="hero-top">
-
-<div>
-
-<h1>🕌 Jadwal Sholat</h1>
-
-<p id="location">
-Mendeteksi lokasi...
-</p>
+    <p>Memuat data lokasi...</p>
 
 </div>
 
-<div class="hero-date">
+<!-- =====================================
+     Header
+====================================== -->
 
-<div id="tanggal">
---
-</div>
+<header class="header">
 
-<div id="hijriah">
---
-</div>
+    <h1>🕌 Jadwal Sholat</h1>
 
-</div>
+    <p id="location">
+        Mendeteksi lokasi...
+    </p>
 
-</div>
+    <p id="tanggal">
+        --
+    </p>
 
-<div class="hero-card">
-
-<span class="label">
-SHOLAT BERIKUTNYA
-</span>
-
-<h2 id="nextName">
-Subuh
-</h2>
-
-<div id="countdown">
-00:00:00
-</div>
-
-</div>
-
-</div>
+    <p id="hijriah">
+        --
+    </p>
 
 </header>
 
-<!-- ===========================
-     Konten
-=========================== -->
+<!-- =====================================
+     Container
+====================================== -->
 
 <main class="container">
+<!-- =====================================
+     Sholat Berikutnya
+====================================== -->
 
 <section class="card">
 
-<h2>🕌 Jadwal Hari Ini</h2>
+    <h2>🕌 Sholat Berikutnya</h2>
 
-<div class="prayer-item">
-<span>🌅 Subuh</span>
-<b id="fajr">--:--</b>
-</div>
+    <div class="next-prayer">
 
-<div class="prayer-item">
-<span>🌄 Syuruq</span>
-<b id="sunrise">--:--</b>
-</div>
+        <div id="nextName">
 
-<div class="prayer-item">
-<span>☀️ Zuhur</span>
-<b id="dhuhr">--:--</b>
-</div>
+            Subuh
 
-<div class="prayer-item">
-<span>🌇 Ashar</span>
-<b id="asr">--:--</b>
-</div>
-<div class="prayer-item">
-<span>🌆 Maghrib</span>
-<b id="maghrib">--:--</b>
-</div>
+        </div>
 
-<div class="prayer-item">
-<span>🌙 Isya</span>
-<b id="isha">--:--</b>
-</div>
+        <div id="countdown">
+
+            00:00:00
+
+        </div>
+
+    </div>
 
 </section>
 
-<!-- ===========================
+<!-- =====================================
+     Jadwal Hari Ini
+====================================== -->
+
+<section class="card">
+
+    <h2>🕌 Jadwal Hari Ini</h2>
+
+    <table class="jadwal">
+
+        <thead>
+
+            <tr>
+
+                <th>Sholat</th>
+
+                <th>Jam</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr>
+
+                <td>🌅 Subuh</td>
+
+                <td id="fajr">--:--</td>
+
+            </tr>
+
+            <tr>
+
+                <td>🌄 Syuruq</td>
+
+                <td id="sunrise">--:--</td>
+
+            </tr>
+
+            <tr>
+
+                <td>☀️ Zuhur</td>
+
+                <td id="dhuhr">--:--</td>
+
+            </tr>
+
+            <tr>
+
+                <td>🌇 Ashar</td>
+
+                <td id="asr">--:--</td>
+
+            </tr>
+
+            <tr>
+
+                <td>🌆 Maghrib</td>
+
+                <td id="maghrib">--:--</td>
+
+            </tr>
+
+            <tr>
+
+                <td>🌙 Isya</td>
+
+                <td id="isha">--:--</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</section>
+<!-- =====================================
      Arah Kiblat
-=========================== -->
+====================================== -->
 
 <section class="card">
 
-<h2>🧭 Arah Kiblat</h2>
+    <h2>🧭 Arah Kiblat</h2>
 
-<div class="qiblat-box">
+    <div class="qiblat-box">
 
-<div class="compass">
+        <div id="qiblatDirection">
+            Menunggu lokasi...
+        </div>
 
-<div id="qiblatDirection">
+        <p class="qiblat-info">
+            Arah Ka'bah dari lokasi Anda
+        </p>
 
-Menunggu lokasi...
-
-</div>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
-<!-- ===========================
+<!-- =====================================
      Notifikasi Adzan
-=========================== -->
+====================================== -->
 
 <section class="card">
 
-<h2>🔔 Notifikasi Adzan</h2>
+    <h2>🔔 Notifikasi Adzan</h2>
 
-<label class="switch">
+    <div class="switch">
 
-<input
-type="checkbox"
-id="notifToggle">
+        <input
+            type="checkbox"
+            id="notifToggle">
 
-<span class="slider"></span>
+    </div>
 
-</label>
-
-<p style="text-align:center;margin-top:15px;color:#666;">
-
-Aktifkan pengingat waktu sholat.
-
-</p>
+    <p class="notif-text">
+        Aktifkan pengingat waktu sholat.
+    </p>
 
 </section>
 
-<!-- ===========================
+<!-- =====================================
      Jadwal Bulanan
-=========================== -->
+====================================== -->
 
 <section class="card">
 
-<h2>📅 Jadwal Bulanan</h2>
+    <h2>📅 Jadwal Bulanan</h2>
 
-<div style="overflow-x:auto;">
+    <div class="table-wrapper">
 
-<table class="jadwal">
+        <table
+            id="monthlyTable"
+            class="jadwal">
 
-<thead>
+            <thead>
 
-<tr>
+                <tr>
 
-<th>Tgl</th>
+                    <th>Tgl</th>
 
-<th>Subuh</th>
+                    <th>Subuh</th>
 
-<th>Zuhur</th>
+                    <th>Zuhur</th>
 
-<th>Ashar</th>
+                    <th>Ashar</th>
 
-<th>Maghrib</th>
+                    <th>Maghrib</th>
 
-<th>Isya</th>
+                    <th>Isya</th>
 
-</tr>
+                </tr>
 
-</thead>
+            </thead>
 
-<tbody id="monthlyBody">
-</tbody>
+            <tbody id="monthlyBody">
 
-</table>
+            </tbody>
 
-</div>
+        </table>
+
+    </div>
 
 </section>
-
-<!-- ===========================
+<!-- =====================================
      Informasi
-=========================== -->
+====================================== -->
 
 <section class="card">
 
-<h2>ℹ️ Informasi</h2>
+    <h2>ℹ️ Informasi</h2>
 
-<div class="prayer-item">
-<span>📍 Lokasi</span>
-<b id="city">Mendeteksi...</b>
-</div>
+    <div class="info-item">
 
-<div class="prayer-item">
-<span>📅 Tanggal</span>
-<b id="tanggalInfo">--</b>
-</div>
+        <span class="info-title">
+            📍 Lokasi
+        </span>
 
-<div class="prayer-item">
-<span>🌙 Hijriah</span>
-<b id="hijriahInfo">--</b>
-</div>
+        <span
+            class="info-value"
+            id="city">
+
+            Mendeteksi...
+
+        </span>
+
+    </div>
+
+    <div class="info-item">
+
+        <span class="info-title">
+            📅 Tanggal
+        </span>
+
+        <span
+            class="info-value"
+            id="tanggalInfo">
+
+            --
+
+        </span>
+
+    </div>
+
+    <div class="info-item">
+
+        <span class="info-title">
+            🌙 Hijriah
+        </span>
+
+        <span
+            class="info-value"
+            id="hijriahInfo">
+
+            --
+
+        </span>
+
+    </div>
 
 </section>
+
+<!-- =====================================
+     Footer
+====================================== -->
 
 <footer class="footer">
 
-<p>
+    <p>
 
-🕌 Jadwal Sholat V4 Premium
+        🕌 Jadwal Sholat V5 Premium
 
-</p>
+    </p>
 
-<p>
+    <small>
 
-Dibuat dengan ❤️ menggunakan Capacitor
+        Dibuat dengan ❤️ menggunakan Capacitor
 
-</p>
+    </small>
 
 </footer>
 
 </main>
 
-<script src="app.js"></script>
-</body>
+<!-- =====================================
+     JavaScript
+====================================== -->
 
+<script src="app.js"></script>
+
+</body>
 </html>
