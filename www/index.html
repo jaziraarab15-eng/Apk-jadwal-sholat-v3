@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <title>Jadwal Sholat</title>
+
+    <meta name="theme-color" content="#0F766E">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="loadingScreen">
+    <div class="loader"></div>
+    <h2>🕌 Jadwal Sholat</h2>
+    <p>Memuat aplikasi...</p>
+</div>
+
+<header class="header">
+    <h1>🕌 Jadwal Sholat</h1>
+
+    <p id="location">
+        Mendeteksi lokasi...
+    </p>
+
+    <p id="tanggal">
+        --
+    </p>
+
+    <p id="hijriah">
+        --
+    </p>
+</header>
+
+<main class="container">
+
+<section class="card">
+
+<h2>Sholat Berikutnya</h2>
+
+<div class="next-prayer">
+
+<div id="nextName">
+Subuh
+</div>
+
+<div id="countdown">
+00:00:00
+</div>
+
+</div>
+
+</section>
+
+<section class="card">
+
+<h2>Jadwal Hari Ini</h2>
+
+<table class="jadwal">
+
+<tr>
+<th>Sholat</th>
+<th>Jam</th>
+</tr>
+
+<tr>
+<td>🌅 Subuh</td>
+<td id="fajr">--:--</td>
+</tr>
+
+<tr>
+<td>🌄 Syuruq</td>
+<td id="sunrise">--:--</td>
+</tr>
+
+<tr>
+<td>☀️ Zuhur</td>
+<td id="dhuhr">--:--</td>
+</tr>
+
+<tr>
+<td>🌇 Ashar</td>
+<td id="asr">--:--</td>
+</tr>
+
+<tr>
+<td>🌆 Maghrib</td>
+<td id="maghrib">--:--</td>
+</tr>
+
+<tr>
+<td>🌙 Isya</td>
+<td id="isha">--:--</td>
+</tr>
+
+</table>
+
+</section>
+<section class="card">
+
+    <h2>🧭 Arah Kiblat</h2>
+
+    <div class="qiblat-box">
+        <div id="qiblatDirection">Menunggu lokasi...</div>
+    </div>
+
+</section>
+
+<section class="card">
+
+    <h2>🔔 Notifikasi Adzan</h2>
+
+    <label class="switch">
+        <input type="checkbox" id="notifToggle">
+        <span class="slider"></span>
+    </label>
+
+    <p class="small">
+        Aktifkan notifikasi adzan untuk waktu sholat.
+    </p>
+
+</section>
+
+<section class="card">
+
+    <h2>📅 Jadwal Bulanan</h2>
+
+    <div class="table-container">
+        <table id="monthlyTable">
+
+            <thead>
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Subuh</th>
+                    <th>Zuhur</th>
+                    <th>Ashar</th>
+                    <th>Maghrib</th>
+                    <th>Isya</th>
+                </tr>
+            </thead>
+
+            <tbody id="monthlyBody">
+            </tbody>
+
+        </table>
+    </div>
+
+</section>
+
+</main>
+
+<footer class="footer">
+    <p>© 2026 Jadwal Sholat</p>
+</footer>
+
+<script src="app.js"></script>
+
+</body>
+</html>
