@@ -1,21 +1,19 @@
 /* ==================================================
-   Jadwal Sholat V4 Premium
+   Jadwal Sholat V5 Full
    app.js - Bagian 1
 ================================================== */
 
 const App = {
     latitude: null,
     longitude: null,
-    city: "Mendeteksi lokasi...",
+    city: "",
     timings: null,
     monthlyData: []
 };
 
 const API_METHOD = 11;
 
-document.addEventListener("DOMContentLoaded", () => {
-    init();
-});
+document.addEventListener("DOMContentLoaded", init);
 
 async function init() {
 
@@ -47,9 +45,9 @@ async function init() {
 
 }
 
-/* =====================================
+/* ==================================================
    GPS
-===================================== */
+================================================== */
 
 async function getLocation() {
 
@@ -57,7 +55,7 @@ async function getLocation() {
 
         if (!navigator.geolocation) {
 
-            reject("Geolocation tidak didukung");
+            reject("Geolocation tidak didukung.");
 
             return;
 
@@ -70,35 +68,16 @@ async function getLocation() {
                 App.latitude = position.coords.latitude;
                 App.longitude = position.coords.longitude;
 
-                const lokasi =
-                    App.latitude.toFixed(5) +
-                    ", " +
-                    App.longitude.toFixed(5);
-
-                const el = document.getElementById("location");
-
-                if (el) {
-
-                    el.textContent = lokasi;
-
-                }
-
                 resolve();
 
             },
 
-            error => {
-
-                reject(error);
-
-            },
+            error => reject(error),
 
             {
-
                 enableHighAccuracy: true,
                 timeout: 15000,
                 maximumAge: 0
-
             }
 
         );
@@ -107,53 +86,47 @@ async function getLocation() {
 
 }
 
-/* =====================================
+/* ==================================================
    Nama Kota Otomatis
-===================================== */
+================================================== */
 
 async function loadCity() {
 
     try {
 
         const url =
-            `https://nominatim.openstreetmap.org/reverse?format=jsonv2` +
-            `&lat=${App.latitude}` +
-            `&lon=${App.longitude}`;
+            `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${App.latitude}&lon=${App.longitude}`;
 
         const res = await fetch(url, {
-
             headers: {
-
                 "Accept": "application/json"
-
             }
-
         });
 
         const json = await res.json();
 
-        const city =
+        App.city =
             json.address.city ||
             json.address.town ||
             json.address.village ||
             json.address.county ||
             "Lokasi Tidak Diketahui";
 
-        App.city = city;
+        const city =
+            document.getElementById("city");
 
-        const cityEl = document.getElementById("city");
+        if (city) {
 
-        if (cityEl) {
-
-            cityEl.textContent = city;
+            city.textContent = App.city;
 
         }
 
-        const locationEl = document.getElementById("location");
+        const location =
+            document.getElementById("location");
 
-        if (locationEl) {
+        if (location) {
 
-            locationEl.textContent = city;
+            location.textContent = App.city;
 
         }
 
@@ -165,9 +138,9 @@ async function loadCity() {
 
 }
 
-/* =====================================
+/* ==================================================
    Loading
-===================================== */
+================================================== */
 
 function hideLoading() {
 
@@ -182,31 +155,38 @@ function hideLoading() {
 
 }
 
-/* =====================================
+/* ==================================================
    Jam
-===================================== */
+================================================== */
 
 function startClock() {
+
+    updateCountdown();
 
     setInterval(updateCountdown, 1000);
 
 }
 /* ==================================================
-   Jadwal Sholat V4 Premium
+   Jadwal Sholat V5 Full
    app.js - Bagian 2
 ================================================== */
 
-/* =====================================
+/* ==================================================
    Jadwal Sholat Hari Ini
-===================================== */
+================================================== */
 
 async function loadTodayPrayer() {
 
     const today = new Date();
 
-    const day = String(today.getDate()).padStart(2, "0");
-    const month = String(today.getMonth() + 1).padStart(2, "0");
-    const year = today.getFullYear();
+    const day =
+        String(today.getDate()).padStart(2,"0");
+
+    const month =
+        String(today.getMonth()+1).padStart(2,"0");
+
+    const year =
+        today.getFullYear();
 
     const url =
         `https://api.aladhan.com/v1/timings/${day}-${month}-${year}` +
@@ -216,9 +196,9 @@ async function loadTodayPrayer() {
 
     const res = await fetch(url);
 
-    if (!res.ok) {
+    if(!res.ok){
 
-        throw new Error("Gagal mengambil jadwal sholat.");
+        throw new Error("Gagal mengambil jadwal.");
 
     }
 
@@ -227,53 +207,35 @@ async function loadTodayPrayer() {
     App.timings = json.data.timings;
 
     /* ==========================
-       Tanggal
+       Tanggal Masehi
     ========================== */
 
     const tanggal =
-        json.data.date.gregorian.date;
-
-    const hijriah =
-        json.data.date.hijri.day +
-        " " +
-        json.data.date.hijri.month.en +
-        " " +
-        json.data.date.hijri.year +
-        " H";
-
-    const tanggalEl =
         document.getElementById("tanggal");
 
-    if (tanggalEl) {
+    if(tanggal){
 
-        tanggalEl.textContent = tanggal;
+        tanggal.textContent =
+    json.data.date.gregorian.date;
 
     }
 
-    const hijriahEl =
+    /* ==========================
+       Tanggal Hijriah
+    ========================== */
+
+    const hijriah =
         document.getElementById("hijriah");
 
-    if (hijriahEl) {
+    if(hijriah){
 
-        hijriahEl.textContent = hijriah;
-
-    }
-
-    const tanggalInfo =
-        document.getElementById("tanggalInfo");
-
-    if (tanggalInfo) {
-
-        tanggalInfo.textContent = tanggal;
-
-    }
-
-    const hijriahInfo =
-        document.getElementById("hijriahInfo");
-
-    if (hijriahInfo) {
-
-        hijriahInfo.textContent = hijriah;
+        hijriah.textContent =
+            json.data.date.hijri.day +
+            " " +
+            json.data.date.hijri.month.en +
+            " " +
+            json.data.date.hijri.year +
+            " H";
 
     }
 
@@ -281,40 +243,113 @@ async function loadTodayPrayer() {
        Jadwal Hari Ini
     ========================== */
 
-    setTime("fajr", App.timings.Fajr);
-    setTime("sunrise", App.timings.Sunrise);
-    setTime("dhuhr", App.timings.Dhuhr);
-    setTime("asr", App.timings.Asr);
-    setTime("maghrib", App.timings.Maghrib);
-    setTime("isha", App.timings.Isha);
+    setTime("fajr",App.timings.Fajr);
+    setTime("sunrise",App.timings.Sunrise);
+    setTime("dhuhr",App.timings.Dhuhr);
+    setTime("asr",App.timings.Asr);
+    setTime("maghrib",App.timings.Maghrib);
+    setTime("isha",App.timings.Isha);
+
+    /* ==========================
+       Background Otomatis
+    ========================== */
+
+    updateBackground();
 
 }
 
-/* =====================================
+/* ==================================================
    Mengisi Jam Sholat
-===================================== */
+================================================== */
 
-function setTime(id, value) {
+function setTime(id,value){
 
     const el =
         document.getElementById(id);
 
-    if (!el) return;
+    if(!el) return;
 
     el.textContent =
-        value.substring(0, 5);
+        value.substring(0,5);
+
+}
+
+/* ==================================================
+   Background Otomatis
+================================================== */
+
+function updateBackground(){
+
+    if(!App.timings) return;
+
+    const body = document.body;
+
+    body.classList.remove(
+        "bg-subuh",
+        "bg-siang",
+        "bg-maghrib",
+        "bg-malam"
+    );
+
+    const now = new Date();
+
+    const current =
+        now.getHours()*60 + now.getMinutes();
+
+    function toMinutes(time){
+
+        const p =
+            time.substring(0,5).split(":");
+
+        return parseInt(p[0])*60 +
+               parseInt(p[1]);
+
+    }
+
+    const fajr =
+        toMinutes(App.timings.Fajr);
+
+    const dhuhr =
+        toMinutes(App.timings.Dhuhr);
+
+    const maghrib =
+        toMinutes(App.timings.Maghrib);
+
+    const isha =
+        toMinutes(App.timings.Isha);
+
+    if(current >= fajr && current < dhuhr){
+
+        body.classList.add("bg-subuh");
+
+    }
+    else if(current >= dhuhr && current < maghrib){
+
+        body.classList.add("bg-siang");
+
+    }
+    else if(current >= maghrib && current < isha){
+
+        body.classList.add("bg-maghrib");
+
+    }
+    else{
+
+        body.classList.add("bg-malam");
+
+    }
 
 }
 /* ==================================================
-   Jadwal Sholat V4 Premium
+   Jadwal Sholat V5 Full
    app.js - Bagian 3
 ================================================== */
 
-/* =====================================
+/* ==================================================
    Jadwal Bulanan
-===================================== */
+================================================== */
 
-async function loadMonthlyPrayer() {
+async function loadMonthlyPrayer(){
 
     const today = new Date();
 
@@ -329,7 +364,7 @@ async function loadMonthlyPrayer() {
 
     const res = await fetch(url);
 
-    if (!res.ok) {
+    if(!res.ok){
 
         throw new Error("Gagal mengambil jadwal bulanan.");
 
@@ -342,7 +377,7 @@ async function loadMonthlyPrayer() {
     const tbody =
         document.getElementById("monthlyBody");
 
-    if (!tbody) return;
+    if(!tbody) return;
 
     tbody.innerHTML = "";
 
@@ -350,7 +385,7 @@ async function loadMonthlyPrayer() {
 
         const t = day.timings;
 
-        tbody.insertAdjacentHTML("beforeend", `
+        tbody.insertAdjacentHTML("beforeend",`
 
 <tr>
 
@@ -374,40 +409,74 @@ async function loadMonthlyPrayer() {
 
 }
 
-/* =====================================
-   Refresh Jadwal Otomatis
-===================================== */
+/* ==================================================
+   Refresh Data Otomatis
+================================================== */
 
-function refreshPrayerData() {
+function refreshPrayerData(){
 
-    setInterval(async () => {
+    setInterval(async()=>{
 
-        try {
+        try{
 
             await loadTodayPrayer();
 
-        } catch (err) {
+            await loadMonthlyPrayer();
+
+        }catch(err){
 
             console.error(err);
 
         }
 
-    }, 60000);
+    },60000);
+
+}
+
+/* ==================================================
+   Refresh Saat Ganti Hari
+================================================== */
+
+function autoRefreshMidnight(){
+
+    setInterval(async()=>{
+
+        const now = new Date();
+
+        if(
+            now.getHours() === 0 &&
+            now.getMinutes() === 0
+        ){
+
+            try{
+
+                await loadTodayPrayer();
+
+                await loadMonthlyPrayer();
+
+            }catch(err){
+
+                console.error(err);
+
+            }
+
+        }
+
+    },60000);
 
 }
 /* ==================================================
-   Jadwal Sholat V4 Premium
+   Jadwal Sholat V5 Full
    app.js - Bagian 4
 ================================================== */
 
-
-/* =====================================
+/* ==================================================
    Countdown Sholat Berikutnya
-===================================== */
+================================================== */
 
-function updateCountdown() {
+function updateCountdown(){
 
-    if (!App.timings) return;
+    if(!App.timings) return;
 
     const prayers = [
 
@@ -424,21 +493,31 @@ function updateCountdown() {
     let nextName = "Subuh";
     let nextTime = null;
 
-    for (const prayer of prayers) {
+    for(const prayer of prayers){
 
-        const time = prayer[1].substring(0,5);
+        const time =
+            prayer[1].substring(0,5);
 
-        const parts = time.split(":");
+        const part =
+            time.split(":");
 
-        const target = new Date();
+        const target =
+            new Date();
 
-        target.setHours(parseInt(parts[0]));
-        target.setMinutes(parseInt(parts[1]));
+        target.setHours(
+            parseInt(part[0])
+        );
+
+        target.setMinutes(
+            parseInt(part[1])
+        );
+
         target.setSeconds(0);
 
-        if (target > now) {
+        if(target > now){
 
             nextName = prayer[0];
+
             nextTime = target;
 
             break;
@@ -447,140 +526,174 @@ function updateCountdown() {
 
     }
 
-    if (!nextTime) {
+    if(!nextTime){
+
+        const part =
+            App.timings.Fajr
+            .substring(0,5)
+            .split(":");
+
+        nextTime =
+            new Date();
+
+        nextTime.setDate(
+            nextTime.getDate()+1
+        );
+
+        nextTime.setHours(
+            parseInt(part[0])
+        );
+
+        nextTime.setMinutes(
+            parseInt(part[1])
+        );
+
+        nextTime.setSeconds(0);
 
         nextName = "Subuh";
 
-        const parts =
-            App.timings.Fajr.substring(0,5).split(":");
-
-        nextTime = new Date();
-
-        nextTime.setDate(nextTime.getDate() + 1);
-
-        nextTime.setHours(parseInt(parts[0]));
-        nextTime.setMinutes(parseInt(parts[1]));
-        nextTime.setSeconds(0);
-
     }
 
-    const diff = nextTime - now;
+    const diff =
+        nextTime-now;
 
-    const hours =
-        Math.floor(diff / 3600000);
+    const h =
+        Math.floor(diff/3600000);
 
-    const minutes =
-        Math.floor((diff % 3600000) / 60000);
+    const m =
+        Math.floor(
+            (diff%3600000)/60000
+        );
 
-    const seconds =
-        Math.floor((diff % 60000) / 1000);
+    const s =
+        Math.floor(
+            (diff%60000)/1000
+        );
 
     const nextNameEl =
         document.getElementById("nextName");
 
-    if (nextNameEl) {
+    if(nextNameEl){
 
-        nextNameEl.textContent = nextName;
+        nextNameEl.textContent =
+            nextName;
 
     }
 
     const countdownEl =
         document.getElementById("countdown");
 
-    if (countdownEl) {
+    if(countdownEl){
 
         countdownEl.textContent =
-            String(hours).padStart(2,"0") + ":" +
-            String(minutes).padStart(2,"0") + ":" +
-            String(seconds).padStart(2,"0");
+            String(h).padStart(2,"0") +
+            ":" +
+            String(m).padStart(2,"0") +
+            ":" +
+            String(s).padStart(2,"0");
 
     }
 
 }
 
-/* =====================================
-   Jalankan Countdown
-===================================== */
-
-setInterval(() => {
-
-    updateCountdown();
-
-}, 1000);
 /* ==================================================
-   Jadwal Sholat V4 Premium
-   app.js - Bagian 5
+   Arah Kiblat
 ================================================== */
 
-/* =====================================
-   Arah Kiblat
-===================================== */
+function updateQibla(){
 
-function updateQibla() {
-
-    if (App.latitude == null || App.longitude == null) return;
+    if(
+        App.latitude==null ||
+        App.longitude==null
+    ) return;
 
     const kaabaLat = 21.4225;
     const kaabaLon = 39.8262;
 
-    const lat1 = App.latitude * Math.PI / 180;
-    const lon1 = App.longitude * Math.PI / 180;
+    const lat1 =
+        App.latitude*Math.PI/180;
 
-    const lat2 = kaabaLat * Math.PI / 180;
-    const lon2 = kaabaLon * Math.PI / 180;
+    const lon1 =
+        App.longitude*Math.PI/180;
 
-    const y = Math.sin(lon2 - lon1);
+    const lat2 =
+        kaabaLat*Math.PI/180;
+
+    const lon2 =
+        kaabaLon*Math.PI/180;
+
+    const y =
+        Math.sin(lon2-lon1);
 
     const x =
-        Math.cos(lat1) * Math.tan(lat2) -
-        Math.sin(lat1) * Math.cos(lon2 - lon1);
+        Math.cos(lat1)*
+        Math.tan(lat2)-
+        Math.sin(lat1)*
+        Math.cos(lon2-lon1);
 
-    let bearing = Math.atan2(y, x) * 180 / Math.PI;
+    let bearing =
+        Math.atan2(y,x)*
+        180/Math.PI;
 
-    bearing = (bearing + 360) % 360;
+    bearing =
+        (bearing+360)%360;
 
     const qibla =
-        document.getElementById("qiblatDirection");
+        document.getElementById(
+            "qiblatDirection"
+        );
 
-    if (qibla) {
+    if(qibla){
 
         qibla.textContent =
-            bearing.toFixed(1) + "°";
+            bearing.toFixed(1)+"°";
 
     }
 
 }
 
-/* =====================================
-   Notifikasi
-===================================== */
+/* ==================================================
+   Notifikasi Adzan
+================================================== */
 
-function initNotificationSetting() {
+function initNotificationSetting(){
 
     const toggle =
-        document.getElementById("notifToggle");
-
-    if (!toggle) return;
-
-    const saved =
-        localStorage.getItem("adzan_notification");
-
-    toggle.checked = saved === "true";
-
-    toggle.addEventListener("change", () => {
-
-        localStorage.setItem(
-            "adzan_notification",
-            toggle.checked
+        document.getElementById(
+            "notifToggle"
         );
 
-    });
+    if(!toggle) return;
+
+    const saved =
+        localStorage.getItem(
+            "adzan_notification"
+        );
+
+    toggle.checked =
+        saved==="true";
+
+    toggle.addEventListener(
+        "change",
+        ()=>{
+
+            localStorage.setItem(
+                "adzan_notification",
+                toggle.checked
+            );
+
+        }
+    );
 
 }
+/* ==================================================
+   Jadwal Sholat V5 Full
+   app.js - Bagian 5
+================================================== */
 
-/* =====================================
+/* ==================================================
    Inisialisasi Tambahan
-===================================== */
+================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -592,12 +705,98 @@ document.addEventListener("DOMContentLoaded", () => {
 
         refreshPrayerData();
 
+        autoRefreshMidnight();
+
+        updateBackground();
+
     }, 1000);
 
 });
 
-/* =====================================
-   Selesai
-===================================== */
+/* ==================================================
+   Update Background Berkala
+================================================== */
 
-console.log("Jadwal Sholat V4 Premium berhasil dimuat.");
+setInterval(() => {
+
+    updateBackground();
+
+}, 60000);
+
+/* ==================================================
+   Refresh Kiblat
+================================================== */
+
+setInterval(() => {
+
+    updateQibla();
+
+}, 5000);
+
+/* ==================================================
+   Refresh Countdown
+================================================== */
+
+setInterval(() => {
+
+    updateCountdown();
+
+}, 1000);
+
+/* ==================================================
+   Refresh Kota
+================================================== */
+
+setInterval(async () => {
+
+    try{
+
+        await loadCity();
+
+    }catch(e){
+
+        console.error(e);
+
+    }
+
+}, 1800000);
+
+/* ==================================================
+   Refresh Jadwal Setiap 6 Jam
+================================================== */
+
+setInterval(async () => {
+
+    try{
+
+        await loadTodayPrayer();
+
+        await loadMonthlyPrayer();
+
+    }catch(e){
+
+        console.error(e);
+
+    }
+
+}, 21600000);
+
+/* ==================================================
+   Log
+================================================== */
+
+console.log("===================================");
+
+console.log("🕌 Jadwal Sholat V5 Full");
+
+console.log("Background otomatis aktif");
+
+console.log("Nama kota otomatis aktif");
+
+console.log("Countdown aktif");
+
+console.log("Jadwal bulanan aktif");
+
+console.log("Kiblat aktif");
+
+console.log("===================================");

@@ -1,6 +1,10 @@
 /* ==================================================
-   Jadwal Sholat V4 Premium
+   Jadwal Sholat V5 Full
    style.css - Bagian 1
+================================================== */
+
+/* ==================================================
+   RESET
 ================================================== */
 
 *{
@@ -10,95 +14,103 @@
 }
 
 html{
+
     scroll-behavior:smooth;
+
 }
 
 body{
 
     font-family:Arial,Helvetica,sans-serif;
 
-    background:#eef3f8;
+    color:#ffffff;
 
-    color:#222;
+    min-height:100vh;
 
-    line-height:1.5;
-
-}
-
-/* ==========================
-   Loading Screen
-========================== */
-
-#loadingScreen{
-
-    position:fixed;
-
-    inset:0;
-
-    background:#0f766e;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    color:#fff;
-
-    z-index:9999;
-
-}
-
-.loader{
-
-    width:70px;
-
-    height:70px;
-
-    border:6px solid rgba(255,255,255,.25);
-
-    border-top:6px solid #fff;
-
-    border-radius:50%;
-
-    animation:spin 1s linear infinite;
-
-    margin-bottom:20px;
-
-}
-
-@keyframes spin{
-
-    from{
-        transform:rotate(0deg);
-    }
-
-    to{
-        transform:rotate(360deg);
-    }
-
-}
-
-/* ==========================
-   Hero Header
-========================== */
-
-.hero{
-
-    background:
-    linear-gradient(rgba(15,118,110,.82),
-    rgba(6,95,70,.88)),
-    url("https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=1400&q=80");
+    transition:background-image .8s ease,
+               background-color .8s ease;
 
     background-size:cover;
 
     background-position:center;
 
+    background-repeat:no-repeat;
+
+    background-attachment:fixed;
+
+}
+
+/* ==================================================
+   BACKGROUND OTOMATIS
+================================================== */
+
+body.bg-subuh{
+
+    background-image:url("images/subuh.jpg");
+
+    background-color:#214d7b;
+
+}
+
+body.bg-siang{
+
+    background-image:url("images/siang.jpg");
+
+    background-color:#58a8e6;
+
+}
+
+body.bg-maghrib{
+
+    background-image:url("images/maghrib.jpg");
+
+    background-color:#e07a2d;
+
+}
+
+body.bg-malam{
+
+    background-image:url("images/malam.jpg");
+
+    background-color:#081826;
+
+}
+
+/* ==================================================
+   OVERLAY
+================================================== */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.30);
+
+    z-index:-1;
+
+}
+
+/* ==================================================
+   HEADER
+================================================== */
+
+.header{
+
+    width:100%;
+
+    text-align:center;
+
+    padding:50px 20px 90px;
+
     color:#fff;
 
-    padding:35px 20px 95px;
+    backdrop-filter:blur(10px);
+
+    background:rgba(0,0,0,.20);
 
     border-bottom-left-radius:30px;
 
@@ -106,135 +118,69 @@ body{
 
 }
 
-.hero-overlay{
-
-    max-width:720px;
-
-    margin:auto;
-
-}
-
-.hero-top{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:flex-start;
-
-}
-
-.hero h1{
-
-    font-size:32px;
-
-    margin-bottom:10px;
-
-}
-
-#location{
-
-    font-size:15px;
-
-    opacity:.95;
-
-}
-
-.hero-date{
-
-    text-align:right;
-
-    font-size:14px;
-
-}
-
-.hero-card{
-
-    margin-top:28px;
-
-    background:#fff;
-
-    color:#222;
-
-    border-radius:24px;
-
-    padding:24px;
-
-    text-align:center;
-
-    box-shadow:0 15px 35px rgba(0,0,0,.18);
-
-}
-
-.hero-card .label{
-
-    color:#0f766e;
-
-    font-size:13px;
-
-    font-weight:bold;
-
-    letter-spacing:1px;
-
-}
-
-.hero-card h2{
-
-    margin-top:10px;
+.header h1{
 
     font-size:34px;
 
-}
-
-.hero-card #countdown{
-
-    margin-top:10px;
-
-    font-size:42px;
+    margin-bottom:12px;
 
     font-weight:bold;
 
-    color:#0f766e;
+    text-shadow:0 2px 8px rgba(0,0,0,.35);
+
+}
+
+.header p{
+
+    margin-top:8px;
+
+    font-size:17px;
+
+    opacity:.96;
+
+    text-shadow:0 1px 6px rgba(0,0,0,.30);
 
 }
 /* ==================================================
-   Jadwal Sholat V4 Premium
+   Jadwal Sholat V5 Full
    style.css - Bagian 2
 ================================================== */
 
-/* ==========================
-   Container
-========================== */
+/* ==================================================
+   CONTAINER
+================================================== */
 
 .container{
 
     width:92%;
 
-    max-width:720px;
+    max-width:700px;
 
     margin:-60px auto 30px;
 
     position:relative;
 
-    z-index:5;
+    z-index:10;
 
 }
 
-/* ==========================
-   Card
-========================== */
+/* ==================================================
+   CARD
+================================================== */
 
 .card{
 
-    background:#fff;
+    background:rgba(255,255,255,.92);
+
+    backdrop-filter:blur(15px);
 
     border-radius:22px;
 
-    padding:20px;
+    padding:22px;
 
     margin-bottom:20px;
 
-    box-shadow:0 8px 24px rgba(0,0,0,.08);
+    box-shadow:0 8px 24px rgba(0,0,0,.18);
 
 }
 
@@ -246,11 +192,49 @@ body{
 
     margin-bottom:18px;
 
+    text-align:center;
+
 }
 
-/* ==========================
-   Jadwal Hari Ini
-========================== */
+/* ==================================================
+   SHOLAT BERIKUTNYA
+================================================== */
+
+.next-prayer{
+
+    text-align:center;
+
+    padding:15px 0;
+
+}
+
+#nextName{
+
+    font-size:26px;
+
+    font-weight:bold;
+
+    color:#0f766e;
+
+    margin-bottom:10px;
+
+}
+
+#countdown{
+
+    font-size:42px;
+
+    font-weight:bold;
+
+    letter-spacing:3px;
+
+    color:#1f2937;
+
+}
+
+/* ==================================================
+   JADWAL HARI INI
+================================================== */
 
 .prayer-item{
 
@@ -262,7 +246,7 @@ body{
 
     padding:15px 0;
 
-    border-bottom:1px solid #ececec;
+    border-bottom:1px solid #e5e7eb;
 
 }
 
@@ -274,23 +258,23 @@ body{
 
 .prayer-item span{
 
+    color:#374151;
+
     font-size:17px;
 
 }
 
 .prayer-item b{
 
-    font-size:18px;
-
     color:#0f766e;
 
-    font-weight:bold;
+    font-size:18px;
 
 }
 
-/* ==========================
-   Tabel Jadwal
-========================== */
+/* ==================================================
+   TABEL
+================================================== */
 
 .jadwal{
 
@@ -314,109 +298,67 @@ body{
 
 .jadwal td{
 
-    padding:12px;
+    color:#374151;
 
     text-align:center;
+
+    padding:11px;
 
     border-bottom:1px solid #ececec;
 
 }
-
-.jadwal tr:nth-child(even){
-
-    background:#f7f9fb;
-
-}
-
-/* ==========================
-   Countdown Lama
-========================== */
-
-.next-prayer{
-
-    text-align:center;
-
-}
-
-#nextName{
-
-    font-size:30px;
-
-    color:#0f766e;
-
-    font-weight:bold;
-
-    margin-bottom:10px;
-
-}
-
-#countdown{
-
-    font-size:34px;
-
-    font-weight:bold;
-
-}
 /* ==================================================
-   Jadwal Sholat V4 Premium
+   Jadwal Sholat V5 Full
    style.css - Bagian 3
 ================================================== */
 
-/* ==========================
-   Arah Kiblat
-========================== */
+/* ==================================================
+   ARAH KIBLAT
+================================================== */
 
 .qiblat-box{
 
-    display:flex;
+    text-align:center;
 
-    justify-content:center;
-
-    align-items:center;
-
-    flex-direction:column;
-
-    padding:25px;
+    padding:20px;
 
 }
 
 #qiblatDirection{
 
-    font-size:30px;
+    font-size:34px;
 
     font-weight:bold;
 
     color:#0f766e;
 
-    margin-top:15px;
+    margin-bottom:10px;
 
 }
 
-.compass{
+.qiblat-info{
 
-    width:180px;
+    color:#6b7280;
 
-    height:180px;
-
-    border:8px solid #0f766e;
-
-    border-radius:50%;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    background:#f7fbfb;
-
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    font-size:15px;
 
 }
 
-/* ==========================
-   Notifikasi
-========================== */
+/* ==================================================
+   NOTIFIKASI ADZAN
+================================================== */
+
+.notif-text{
+
+    text-align:center;
+
+    color:#6b7280;
+
+    margin-top:12px;
+
+    font-size:15px;
+
+}
 
 .switch{
 
@@ -424,95 +366,231 @@ body{
 
     justify-content:center;
 
+    align-items:center;
+
     margin-top:15px;
 
 }
 
-.slider{
+.switch input{
 
-    width:58px;
+    width:22px;
 
-    height:30px;
-
-    background:#d1d5db;
-
-    border-radius:30px;
-
-    position:relative;
+    height:22px;
 
     cursor:pointer;
 
-    transition:.3s;
+}
+
+/* ==================================================
+   JADWAL BULANAN
+================================================== */
+
+.table-wrapper{
+
+    overflow-x:auto;
+
+    border-radius:16px;
 
 }
 
-.slider::before{
+#monthlyTable{
 
-    content:"";
+    width:100%;
 
-    position:absolute;
+    border-collapse:collapse;
 
-    width:24px;
-
-    height:24px;
-
-    left:3px;
-
-    top:3px;
-
-    background:#fff;
-
-    border-radius:50%;
-
-    transition:.3s;
+    min-width:520px;
 
 }
 
-input:checked + .slider{
+#monthlyTable th{
 
     background:#0f766e;
 
+    color:#fff;
+
+    padding:12px;
+
+    font-size:15px;
+
+    position:sticky;
+
+    top:0;
+
 }
 
-input:checked + .slider::before{
+#monthlyTable td{
 
-    transform:translateX(28px);
+    text-align:center;
+
+    color:#374151;
+
+    padding:10px;
+
+    border-bottom:1px solid #ececec;
+
+    background:#ffffff;
 
 }
 
-/* ==========================
-   Footer
-========================== */
+#monthlyTable tr:hover td{
+
+    background:#f3f4f6;
+
+}
+
+/* ==================================================
+   INFORMASI
+================================================== */
+
+.info-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:12px 0;
+
+    border-bottom:1px solid #ececec;
+
+}
+
+.info-item:last-child{
+
+    border-bottom:none;
+
+}
+
+.info-title{
+
+    color:#6b7280;
+
+    font-weight:bold;
+
+}
+
+.info-value{
+
+    color:#0f766e;
+
+    font-weight:bold;
+
+    text-align:right;
+
+}
+
+/* ==================================================
+   FOOTER
+================================================== */
 
 .footer{
 
     text-align:center;
 
-    color:#777;
+    padding:25px 15px 40px;
 
-    padding:25px;
+    color:#ffffff;
 
-    font-size:14px;
+    font-size:15px;
+
+    text-shadow:0 2px 6px rgba(0,0,0,.35);
 
 }
 
 .footer b{
 
-    color:#0f766e;
+    color:#ffffff;
+
+}
+
+.footer small{
+
+    display:block;
+
+    margin-top:8px;
+
+    opacity:.9;
 
 }
 /* ==================================================
-   Jadwal Sholat V4 Premium
+   Jadwal Sholat V5 Full
    style.css - Bagian 4
 ================================================== */
 
-/* ==========================
-   Animasi
-========================== */
+/* ==================================================
+   LOADING SCREEN
+================================================== */
+
+#loadingScreen{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:linear-gradient(
+        180deg,
+        #0f766e,
+        #115e59
+    );
+
+    color:#fff;
+
+    z-index:9999;
+
+}
+
+.loader{
+
+    width:65px;
+
+    height:65px;
+
+    border:6px solid rgba(255,255,255,.25);
+
+    border-top:6px solid #ffffff;
+
+    border-radius:50%;
+
+    animation:spin 1s linear infinite;
+
+    margin-bottom:20px;
+
+}
+
+@keyframes spin{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+/* ==================================================
+   ANIMASI CARD
+================================================== */
 
 .card{
 
-    animation:fadeUp .5s ease;
+    animation:fadeUp .6s ease;
 
 }
 
@@ -536,13 +614,41 @@ input:checked + .slider::before{
 
 }
 
-/* ==========================
-   Scrollbar
-========================== */
+/* ==================================================
+   EFEK SENTUH
+================================================== */
+
+.card:active{
+
+    transform:scale(.99);
+
+    transition:.2s;
+
+}
+
+button{
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+button:hover{
+
+    opacity:.9;
+
+}
+
+/* ==================================================
+   SCROLLBAR
+================================================== */
 
 ::-webkit-scrollbar{
 
     width:8px;
+
+    height:8px;
 
 }
 
@@ -550,71 +656,47 @@ input:checked + .slider::before{
 
     background:#0f766e;
 
-    border-radius:10px;
+    border-radius:20px;
 
 }
 
 ::-webkit-scrollbar-track{
 
-    background:#eef3f8;
+    background:#e5e7eb;
 
 }
 
-/* ==========================
-   Responsive
-========================== */
+/* ==================================================
+   RESPONSIVE
+================================================== */
 
-@media (max-width:768px){
+@media(max-width:768px){
 
-    .hero{
+    .header{
 
-        padding:28px 16px 90px;
-
-    }
-
-    .hero-top{
-
-        flex-direction:column;
-
-        gap:12px;
+        padding:40px 18px 80px;
 
     }
 
-    .hero-date{
+    .header h1{
 
-        text-align:left;
-
-    }
-
-    .hero h1{
-
-        font-size:28px;
-
-    }
-
-    .hero-card h2{
-
-        font-size:28px;
-
-    }
-
-    .hero-card #countdown{
-
-        font-size:34px;
+        font-size:30px;
 
     }
 
     .container{
 
-        width:94%;
+        width:95%;
 
-        margin-top:-55px;
+        margin:-55px auto 20px;
 
     }
 
     .card{
 
-        padding:16px;
+        padding:18px;
+
+        border-radius:18px;
 
     }
 
@@ -624,78 +706,65 @@ input:checked + .slider::before{
 
     }
 
-    .prayer-item{
+    #countdown{
 
-        padding:12px 0;
-
-    }
-
-    .prayer-item span{
-
-        font-size:16px;
+        font-size:34px;
 
     }
 
-    .prayer-item b{
+    #nextName{
 
-        font-size:17px;
-
-    }
-
-    .compass{
-
-        width:150px;
-
-        height:150px;
+        font-size:22px;
 
     }
 
-    #qiblatDirection{
+    .jadwal th,
 
-        font-size:24px;
+    .jadwal td{
+
+        font-size:14px;
+
+        padding:9px;
+
+    }
+
+    #monthlyTable{
+
+        min-width:480px;
 
     }
 
 }
 
-@media (max-width:480px){
+@media(max-width:480px){
 
-    .hero h1{
+    .header h1{
 
-        font-size:24px;
-
-    }
-
-    .hero-card{
-
-        padding:18px;
+        font-size:26px;
 
     }
 
-    .hero-card h2{
+    .header p{
 
-        font-size:24px;
-
-    }
-
-    .hero-card #countdown{
-
-        font-size:28px;
+        font-size:15px;
 
     }
 
     .card{
 
-        border-radius:18px;
+        padding:16px;
 
     }
 
-    .jadwal th,
-    .jadwal td{
+    #countdown{
 
-        padding:8px;
+        font-size:28px;
 
-        font-size:13px;
+    }
+
+    #qiblatDirection{
+
+        font-size:28px;
 
     }
 
@@ -706,3 +775,23 @@ input:checked + .slider::before{
     }
 
 }
+
+/* ==================================================
+   TRANSISI BACKGROUND
+================================================== */
+
+body{
+
+    transition:
+
+        background-image .8s ease,
+
+        background-color .8s ease,
+
+        color .3s ease;
+
+}
+
+/* ==================================================
+   SELESAI
+================================================== */
