@@ -26,10 +26,9 @@ async function init() {
         startClock();
 
         hideLoading();
-    } catch (err) {
-        console.error(err);
-        alert("Gagal memuat data.");
-    }
+   } catch (err) {
+    console.error(err);
+    alert("Gagal memuat data:\n\n" + (err.message || err));
 }
 
 async function getLocation() {
