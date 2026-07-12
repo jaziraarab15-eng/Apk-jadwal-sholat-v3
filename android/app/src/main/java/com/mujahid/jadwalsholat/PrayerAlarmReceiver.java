@@ -19,19 +19,19 @@ public class PrayerAlarmReceiver extends BroadcastReceiver {
 
         createNotificationChannel(context);
 
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(context, CHANNEL_ID)
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        String prayer =
-        intent.getStringExtra("prayer");
+        String prayer = intent.getStringExtra("prayer");
 
-if (prayer == null)
+if (prayer == null) {
     prayer = "Sholat";
+}
 
-.setContentTitle("🕌 Waktu " + prayer)
-.setContentText("Saatnya melaksanakan sholat " + prayer + ".")
-                        .setPriority(NotificationCompat.PRIORITY_HIGH)
-                        .setAutoCancel(true);
+NotificationCompat.Builder builder =
+        new NotificationCompat.Builder(context, CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("🕌 Waktu " + prayer)
+                .setContentText("Saatnya melaksanakan sholat " + prayer + ".")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true);
 
         NotificationManagerCompat.from(context)
                 .notify(1001, builder.build());
