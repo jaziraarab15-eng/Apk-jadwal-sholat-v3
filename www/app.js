@@ -205,6 +205,7 @@ async function loadTodayPrayer() {
     const json = await res.json();
 
     App.timings = json.data.timings;
+await NotificationManager.schedulePrayerNotifications(App.timings);
 
     /* ==========================
        Tanggal Masehi
@@ -249,6 +250,16 @@ async function loadTodayPrayer() {
     setTime("asr",App.timings.Asr);
     setTime("maghrib",App.timings.Maghrib);
     setTime("isha",App.timings.Isha);
+
+/* Jadwalkan Notifikasi */
+
+if (window.NotificationManager) {
+
+    await NotificationManager.init();
+
+    await NotificationManager.schedulePrayerNotifications(App.timings);
+
+}
 
     /* ==========================
        Background Otomatis

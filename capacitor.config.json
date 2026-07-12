@@ -1,5 +1,14 @@
 {
   "appId": "com.mujahid.jadwalsholat",
   "appName": "jadwal-sholat-v3",
-  "webDir": "www"
+  "webDir": "www",
+  "plugins": {
+    "BackgroundRunner": {
+      "label": "Jadwal Sholat Background",
+      "src": "runner.js",
+      "event": "runner",
+      "repeat": true,
+      "interval": 900
+    }
+  }
 }
