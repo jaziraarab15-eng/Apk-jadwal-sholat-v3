@@ -1,5 +1,6 @@
 package com.mujahid.jadwalsholat;
 
+import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
 import com.getcapacitor.annotation.CapacitorPlugin;
@@ -11,27 +12,41 @@ public class PrayerPlugin extends Plugin {
     @PluginMethod
     public void savePrayer(PluginCall call) {
 
-        String prayer =
-                call.getString("prayer");
+        String prayer = call.getString("prayer");
+        Long triggerTime = call.getLong("triggerTime");
 
-        Long trigger =
-                call.getLong("triggerTime");
-
-        if (prayer == null || trigger == null) {
-
-            call.reject("Parameter tidak lengkap.");
-
+        if (prayer == null || triggerTime == null) {
+            call.reject("Parameter prayer atau triggerTime tidak lengkap.");
             return;
-
         }
 
-        PrayerStorage.savePrayer(
-                getContext(),
-                prayer,
-                trigger
-        );
+        try {
 
-        call.resolve();
+            PrayerStorage.savePrayer(
+                    getContext(),
+                    prayer,
+                    triggerTime
+            );
+
+            AlarmScheduler.schedulePrayer(
+                    getContext(),
+                    prayer.hashCode(),
+                    triggerTime,
+                    prayer
+            );
+
+            JSObject ret = new JSObject();
+            ret.put("success", true);
+            ret.put("prayer", prayer);
+            ret.put("triggerTime", triggerTime);
+
+            call.resolve(ret);
+
+        } catch (Exception e) {
+
+            call.reject(e.getMessage());
+
+        }
 
     }
 
