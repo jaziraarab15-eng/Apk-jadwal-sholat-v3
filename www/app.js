@@ -272,7 +272,11 @@ if (window.NotificationManager) {
 /* ==========================
    Simpan Alarm Native Android
 ========================== */
+
 if (window.PrayerPlugin) {
+
+    console.log("Memanggil PrayerPlugin...");
+
     await PrayerPlugin.savePrayer({
         prayer: "Subuh",
         triggerTime: waktuSubuh
@@ -299,6 +303,11 @@ if (window.PrayerPlugin) {
     });
 
     console.log("Alarm native berhasil dijadwalkan.");
+
+} else {
+
+    console.log("PrayerPlugin TIDAK ditemukan!");
+
 }
 
     /* =========================
