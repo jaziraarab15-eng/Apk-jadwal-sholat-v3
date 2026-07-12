@@ -269,14 +269,6 @@ if (window.NotificationManager) {
 
 }
 
-    /* ==========================
-       Background Otomatis
-    ========================== */
-
-    updateBackground();
-
-}
-
 /* ==========================
    Simpan Alarm Native Android
 ========================== */
@@ -307,6 +299,14 @@ if (window.PrayerPlugin) {
     });
 
     console.log("Alarm native berhasil dijadwalkan.");
+}
+
+    /* =========================
+       Background Otomatis
+    ========================== */
+
+    updateBackground();
+
 }
 
 /* ==================================================
