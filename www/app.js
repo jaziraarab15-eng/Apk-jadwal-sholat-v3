@@ -275,9 +275,7 @@ if (window.NotificationManager) {
 
 if (window.PrayerPlugin) {
 
-    console.log("Memanggil PrayerPlugin...");
-
-    try {
+   try {
     console.log("Memanggil PrayerPlugin...");
 
     const hasil = await PrayerPlugin.savePrayer({
