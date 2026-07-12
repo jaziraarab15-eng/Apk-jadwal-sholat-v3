@@ -15,6 +15,8 @@ public class PrayerPlugin extends Plugin {
         String prayer = call.getString("prayer");
         Long triggerTime = call.getLong("triggerTime");
 
+android.util.Log.d("PrayerPlugin", "savePrayer: " + prayer + " " + triggerTime);
+
         if (prayer == null || triggerTime == null) {
             call.reject("Parameter prayer atau triggerTime tidak lengkap.");
             return;
@@ -34,6 +36,8 @@ public class PrayerPlugin extends Plugin {
                     triggerTime,
                     prayer
             );
+
+android.util.Log.d("PrayerPlugin", "AlarmScheduler selesai untuk " + prayer);
 
             JSObject ret = new JSObject();
             ret.put("success", true);
