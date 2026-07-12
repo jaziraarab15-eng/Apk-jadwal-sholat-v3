@@ -17,6 +17,12 @@ public class PrayerPlugin extends Plugin {
 
 android.util.Log.d("PrayerPlugin", "savePrayer: " + prayer + " " + triggerTime);
 
+android.widget.Toast.makeText(
+    getContext(),
+    "savePrayer dipanggil: " + prayer,
+    android.widget.Toast.LENGTH_LONG
+).show();
+
         if (prayer == null || triggerTime == null) {
             call.reject("Parameter prayer atau triggerTime tidak lengkap.");
             return;
