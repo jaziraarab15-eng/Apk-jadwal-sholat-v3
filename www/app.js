@@ -277,6 +277,38 @@ if (window.NotificationManager) {
 
 }
 
+/* ==========================
+   Simpan Alarm Native Android
+========================== */
+if (window.PrayerPlugin) {
+    await PrayerPlugin.savePrayer({
+        prayer: "Subuh",
+        triggerTime: waktuSubuh
+    });
+
+    await PrayerPlugin.savePrayer({
+        prayer: "Zuhur",
+        triggerTime: waktuZuhur
+    });
+
+    await PrayerPlugin.savePrayer({
+        prayer: "Ashar",
+        triggerTime: waktuAshar
+    });
+
+    await PrayerPlugin.savePrayer({
+        prayer: "Maghrib",
+        triggerTime: waktuMaghrib
+    });
+
+    await PrayerPlugin.savePrayer({
+        prayer: "Isya",
+        triggerTime: waktuIsya
+    });
+
+    console.log("Alarm native berhasil dijadwalkan.");
+}
+
 /* ==================================================
    Mengisi Jam Sholat
 ================================================== */
