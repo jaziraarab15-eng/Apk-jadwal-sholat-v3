@@ -48,7 +48,6 @@ public class AlarmScheduler {
 
     }
 
-}
 public static void schedulePrayer(
         Context context,
         int requestCode,
@@ -105,5 +104,7 @@ public static void saveSchedule(
             prayer,
             triggerTime
     );
+
+}
 
 }
