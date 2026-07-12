@@ -277,10 +277,20 @@ if (window.PrayerPlugin) {
 
     console.log("Memanggil PrayerPlugin...");
 
-    await PrayerPlugin.savePrayer({
+    try {
+    console.log("Memanggil PrayerPlugin...");
+
+    const hasil = await PrayerPlugin.savePrayer({
         prayer: "Subuh",
         triggerTime: waktuSubuh
     });
+
+    console.log("HASIL:", hasil);
+
+} catch (e) {
+    console.error("ERROR PrayerPlugin:", e);
+    alert("ERROR: " + e);
+}
 
     await PrayerPlugin.savePrayer({
         prayer: "Zuhur",
