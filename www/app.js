@@ -251,6 +251,14 @@ await NotificationManager.schedulePrayerNotifications(App.timings);
     setTime("maghrib",App.timings.Maghrib);
     setTime("isha",App.timings.Isha);
 
+/* Timestamp Jadwal Sholat */
+
+const waktuSubuh = prayerTimeToTimestamp(App.timings.Fajr);
+const waktuZuhur = prayerTimeToTimestamp(App.timings.Dhuhr);
+const waktuAshar = prayerTimeToTimestamp(App.timings.Asr);
+const waktuMaghrib = prayerTimeToTimestamp(App.timings.Maghrib);
+const waktuIsya = prayerTimeToTimestamp(App.timings.Isha);
+
 /* Jadwalkan Notifikasi */
 
 if (window.NotificationManager) {
@@ -282,6 +290,37 @@ function setTime(id,value){
 
     el.textContent =
         value.substring(0,5);
+
+}
+
+/* =====================================
+   Jam -> Timestamp
+===================================== */
+
+function prayerTimeToTimestamp(timeString) {
+
+    const now = new Date();
+
+    const parts = timeString.substring(0, 5).split(":");
+
+    const date = new Date();
+
+    date.setFullYear(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate()
+    );
+
+    date.setHours(parseInt(parts[0]));
+    date.setMinutes(parseInt(parts[1]));
+    date.setSeconds(0);
+    date.setMilliseconds(0);
+
+    if (date.getTime() < now.getTime()) {
+        date.setDate(date.getDate() + 1);
+    }
+
+    return date.getTime();
 
 }
 
