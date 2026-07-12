@@ -1,15 +1,9 @@
-const PrayerPlugin = {
+const { registerPlugin } = Capacitor;
 
+const PrayerPlugin = registerPlugin("PrayerPlugin");
+
+window.PrayerPlugin = {
     async savePrayer(data) {
-
-        if (!window.Capacitor) {
-            throw new Error("Capacitor tidak tersedia.");
-        }
-
-        return await Capacitor.Plugins.PrayerPlugin.savePrayer(data);
-
+        return await PrayerPlugin.savePrayer(data);
     }
-
 };
-
-window.PrayerPlugin = PrayerPlugin;
