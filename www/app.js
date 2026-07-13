@@ -275,20 +275,10 @@ if (window.NotificationManager) {
 
 if (window.PrayerPlugin) {
 
-   try {
-    console.log("Memanggil PrayerPlugin...");
-
-    const hasil = await PrayerPlugin.savePrayer({
+    await PrayerPlugin.savePrayer({
         prayer: "Subuh",
         triggerTime: waktuSubuh
     });
-
-    console.log("HASIL:", hasil);
-
-} catch (e) {
-    console.error("ERROR PrayerPlugin:", e);
-    alert("ERROR: " + e);
-}
 
     await PrayerPlugin.savePrayer({
         prayer: "Zuhur",
@@ -312,12 +302,7 @@ if (window.PrayerPlugin) {
 
     console.log("Alarm native berhasil dijadwalkan.");
 
-} else {
-
-    console.log("PrayerPlugin TIDAK ditemukan!");
-
 }
-
     /* =========================
        Background Otomatis
     ========================== */
