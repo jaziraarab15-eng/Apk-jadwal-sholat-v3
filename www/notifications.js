@@ -78,6 +78,9 @@ const NotificationManager = {
 NotificationManager.schedulePrayerNotifications =
 async function (timings) {
 
+    console.log("schedulePrayerNotifications dipanggil");
+    console.log(timings);
+
     if (!window.Capacitor) return;
 
     const { LocalNotifications } =
@@ -147,17 +150,25 @@ async function (timings) {
 
                 },
 
-                channelId: "adzan"
+                                channelId: "adzan"
 
             });
 
         });
 
+        console.log("Akan menjadwalkan:", notifications);
+
         await LocalNotifications.schedule({
-
             notifications: notifications
-
         });
+
+        const pendingAfter =
+            await LocalNotifications.getPending();
+
+        console.log(
+            "Pending:",
+            pendingAfter.notifications
+        );
 
         console.log(
             "Notifikasi sholat berhasil dijadwalkan."
